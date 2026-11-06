@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfolio of Korisipati Vishnu Vardhan, an AI engineer building production AI agents and LLM-orchestrated workflows.">
+<title>Vishnu Vardhan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout concept: a hero that pairs the pitch with an agent run trace, then a pipeline strip, work, stack and contact. */
+:root {
+  --bg: #EDF0F3;
+  --surface: #F8FAFB;
+  --ink: #0F1822;
+  --muted: #566275;
+  --line: #CDD4DC;
+  --accent: #0A7A72;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #D6EEEB;
+  --run: #9A5A06;
+  --run-soft: #F6E6CC;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1117;
+    --surface: #121A22;
+    --ink: #E6ECF2;
+    --muted: #93A0B1;
+    --line: #25303C;
+    --accent: #4FD1C5;
+    --accent-ink: #06201E;
+    --accent-soft: #12302F;
+    --run: #E8A33D;
+    --run-soft: #34270F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1117;
+  --surface: #121A22;
+  --ink: #E6ECF2;
+  --muted: #93A0B1;
+  --line: #25303C;
+  --accent: #4FD1C5;
+  --accent-ink: #06201E;
+  --accent-soft: #12302F;
+  --run: #E8A33D;
+  --run-soft: #34270F;
+  color-scheme: dark;
+}
+
+:root { color-scheme: light; }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1rem/1.65 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.wrap {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label {
+  font: 500 0.75rem/1.2 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.015em; }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 700; line-height: 1.12; }
+h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.25; }
+p { margin: 0; }
+section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+
+/* Header */
+.top { padding-block: 1.25rem; }
+.top .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem 2rem; }
+.brand { font: 700 1.05rem/1 var(--font-display); text-decoration: none; letter-spacing: -0.01em; }
+.top nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; font: 500 0.8rem/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; }
+.top nav a { text-decoration: none; color: var(--muted); padding-block: 0.4rem; }
+.top nav a:hover { color: var(--accent); }
+
+/* Hero */
+.hero { padding-block: clamp(2rem, 5vw, 4rem) clamp(3rem, 7vw, 5.5rem); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.hero h1 { font-size: clamp(2.5rem, 6.4vw, 4.6rem); font-weight: 800; line-height: 1.02; letter-spacing: -0.03em; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.lead { font-size: 1.15rem; color: var(--muted); max-width: 34rem; margin-top: 1.5rem; }
+.cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font: 500 0.9rem/1 var(--font-body);
+  padding: 0.85rem 1.25rem;
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn:hover { border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+
+/* Trace card */
+.trace { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; min-width: 0; }
+.trace-bar { display: flex; justify-content: space-between; gap: 1rem; padding: 0.7rem 1rem; border-bottom: 1px solid var(--line); font: 500 0.72rem/1.2 var(--font-mono); color: var(--muted); letter-spacing: 0.04em; }
+.trace ol { list-style: none; margin: 0; padding: 0.5rem 0; font: 400 0.82rem/1.4 var(--font-mono); }
+.trace li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.55rem 1rem; }
+.trace li + li { border-top: 1px dashed var(--line); }
+.ev { min-width: 0; overflow-wrap: anywhere; }
+.ev b { font-weight: 500; color: var(--accent); }
+.ev span { color: var(--muted); }
+.chip { flex: none; font: 500 0.68rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.5rem; border-radius: 3px; }
+.chip.done { background: var(--accent-soft); color: var(--accent); }
+.chip.run { background: var(--run-soft); color: var(--run); }
+.chip.wait { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.dot { display: inline-block; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--run); margin-right: 0.4rem; animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.25; } }
+.trace-note { padding: 0.7rem 1rem; border-top: 1px solid var(--line); font: 400 0.72rem/1.4 var(--font-mono); color: var(--muted); }
+
+/* What I build */
+.build { border-top: 1px solid var(--line); }
+.build-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem 2.5rem; margin-top: 2.5rem; }
+.build-grid > div { border-top: 2px solid var(--ink); padding-top: 1.1rem; }
+.build-grid p { color: var(--muted); margin-top: 0.6rem; }
+
+/* Flow */
+.flow-wrap { margin-top: 2.5rem; }
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.6rem; }
+.flow li { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1rem; min-width: 0; }
+.flow li:not(:last-child)::after { content: "\2192"; position: absolute; right: -1.45rem; top: 1rem; width: 1.3rem; text-align: center; font: 500 1rem/1.2 var(--font-mono); color: var(--accent); }
+.flow h3 { font-size: 1rem; }
+.flow p { font: 400 0.8rem/1.5 var(--font-mono); color: var(--muted); margin-top: 0.5rem; overflow-wrap: anywhere; }
+.caption { font: 400 0.78rem/1.5 var(--font-mono); color: var(--muted); margin-top: 1.25rem; }
+
+/* Work */
+.work { background: var(--surface); border-block: 1px solid var(--line); }
+.role { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: 1.5rem 3rem; margin-top: 2.5rem; }
+.role-meta p { font: 400 0.85rem/1.5 var(--font-mono); color: var(--muted); }
+.role-meta strong { display: block; font: 700 1.2rem/1.25 var(--font-display); color: var(--ink); margin-bottom: 0.4rem; }
+.bullets { margin: 0; padding-left: 1.15rem; max-width: 42rem; }
+.bullets li { padding-left: 0.3rem; margin-bottom: 0.65rem; }
+.bullets li::marker { color: var(--accent); }
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 2.5rem; margin-top: 4rem; }
+.project { border-top: 2px solid var(--ink); padding-top: 1.1rem; min-width: 0; }
+.project .bullets { margin-top: 1rem; }
+.chips { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chips li { font: 400 0.75rem/1 var(--font-mono); padding: 0.4rem 0.55rem; border: 1px solid var(--line); border-radius: 3px; color: var(--ink); background: var(--bg); }
+
+/* Stack */
+.stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 2.5rem 2.5rem; margin-top: 2.5rem; }
+.stack-grid .label { margin-bottom: 0.2rem; color: var(--accent); }
+.stack-grid .chips { margin-top: 0.6rem; }
+.edu { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 0.5rem 3rem; }
+.edu p:first-child { font: 600 1.05rem/1.4 var(--font-display); }
+.edu p:last-child { color: var(--muted); font: 400 0.85rem/1.5 var(--font-mono); }
+
+/* Contact */
+.contact { border-top: 1px solid var(--line); }
+.contact h2 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; max-width: 22ch; }
+.mail-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 2rem; }
+.mail { font: 500 clamp(1rem, 2.6vw, 1.35rem)/1.3 var(--font-mono); overflow-wrap: anywhere; }
+.status { font: 400 0.8rem/1 var(--font-mono); color: var(--accent); min-height: 1em; }
+footer { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--line); font: 400 0.78rem/1.5 var(--font-mono); color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; }
+
+@media (max-width: 960px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+  .build-grid { grid-template-columns: minmax(0, 1fr); }
+  .flow { grid-template-columns: minmax(0, 1fr); }
+  .flow li:not(:last-child)::after { content: "\2193"; right: auto; left: 1rem; top: auto; bottom: -1.5rem; }
+  .role { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dot { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Vishnu Vardhan</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="label">AI engineer &middot; Hyderabad, India</p>
+        <h1>I build AI agents that <em>run in production.</em></h1>
+        <p class="lead">I design autonomous agents and LLM-orchestrated workflows. They combine several models with scraping and search APIs, and run on event-driven Node.js and TypeScript backends.</p>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Get in touch</a>
+          <a class="btn" href="https://linkedin.com/in/vishnu-vardhan-25b71b266" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+
+      <figure class="trace" style="margin:0" aria-label="Illustrative agent run trace">
+        <div class="trace-bar"><span>agent run</span><span>profile-analysis</span></div>
+        <ol>
+          <li><span class="ev"><b>queue.job</b> <span>received</span></span><span class="chip done">done</span></li>
+          <li><span class="ev"><b>agent.start</b> <span>profile analysis</span></span><span class="chip done">done</span></li>
+          <li><span class="ev"><b>tool.scrape</b> <span>BrightData</span></span><span class="chip done">done</span></li>
+          <li><span class="ev"><b>tool.search</b> <span>Serper</span></span><span class="chip done">done</span></li>
+          <li><span class="ev"><b>llm.analyze</b> <span>multi-model</span></span><span class="chip run"><span class="dot"></span>running</span></li>
+          <li><span class="ev"><b>store.write</b> <span>MongoDB</span></span><span class="chip wait">queued</span></li>
+          <li><span class="ev"><b>job.complete</b></span><span class="chip wait">queued</span></li>
+        </ol>
+        <p class="trace-note">Illustrative trace of the kind of run I build. Not real data.</p>
+      </figure>
+    </div>
+  </section>
+
+  <section class="build" aria-labelledby="build-h">
+    <div class="wrap">
+      <p class="label">What I build</p>
+      <h2 id="build-h">Agents with a job to do, wired into the systems around them.</h2>
+      <div class="build-grid">
+        <div>
+          <h3>Autonomous AI agents</h3>
+          <p>Task-specific agents for profile scraping, profile analysis and competitor research. Each one fetches, enriches and reasons over its own data.</p>
+        </div>
+        <div>
+          <h3>Multi-LLM orchestration</h3>
+          <p>Several LLMs working inside one agent, alongside third-party data APIs, to produce structured, task-specific output.</p>
+        </div>
+        <div>
+          <h3>Workflow automation nodes</h3>
+          <p>Custom nodes for social media posting, CRM operations and LLM tasks, connected to other products through OAuth 2.0.</p>
+        </div>
+      </div>
+
+      <div class="flow-wrap">
+        <p class="label">How a run moves</p>
+        <ol class="flow">
+          <li><h3>Trigger</h3><p>Workflow node or webhook</p></li>
+          <li><h3>Queue</h3><p>Redis, BullMQ, Kafka</p></li>
+          <li><h3>Agent</h3><p>BrightData, Apify, Serper, SERP API</p></li>
+          <li><h3>LLMs</h3><p>Several models, one agent</p></li>
+          <li><h3>Store</h3><p>MongoDB, ClickHouse</p></li>
+        </ol>
+        <p class="caption">A simplified view of the systems I work on.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <p class="label">Work</p>
+      <h2 id="work-h">Marketing automation, built on agents.</h2>
+
+      <div class="role">
+        <div class="role-meta">
+          <p><strong>Software Developer</strong>Turgo.ai (Growstack Inc.)<br>Jan 2026 &ndash; Present<br>Hyderabad, India</p>
+        </div>
+        <ul class="bullets">
+          <li>Develop and maintain the autonomous AI agents and custom workflow nodes behind Turgo's marketing automation platform.</li>
+          <li>Build backend services and REST APIs with Node.js, TypeScript, NestJS and Express in a microservices architecture.</li>
+          <li>Orchestrate multiple LLMs together with third-party data APIs for task-specific automation.</li>
+          <li>Run asynchronous, event-driven job processing on Redis, BullMQ and Kafka for reliable, high-throughput task handling.</li>
+          <li>Store and analyze data in MongoDB and ClickHouse, and containerize services with Docker.</li>
+          <li>Debug and tune complex workflows with product and engineering teams to improve performance, reliability and scalability.</li>
+        </ul>
+      </div>
+
+      <div class="projects">
+        <article class="project">
+          <h3>AI agents for task-specific automation</h3>
+          <ul class="bullets">
+            <li>Designed and built multiple autonomous agents, each focused on one task such as profile scraping, profile analysis or competitor research.</li>
+            <li>Integrated BrightData, Apify, Serper and SERP APIs inside the agents to fetch, scrape and enrich data.</li>
+            <li>Orchestrated several LLMs in the agent logic to process that data and generate the final output.</li>
+          </ul>
+          <ul class="chips" aria-label="Technologies">
+            <li>Node.js</li><li>TypeScript</li><li>LLMs</li><li>BrightData</li><li>Apify</li><li>Serper</li><li>SERP API</li>
+          </ul>
+        </article>
+        <article class="project">
+          <h3>Workflow automation nodes and integrations</h3>
+          <ul class="bullets">
+            <li>Built and integrated custom workflow nodes for social media posting, CRM operations and LLM-powered tasks.</li>
+            <li>Implemented OAuth 2.0 connection logic to securely authenticate and link third-party services.</li>
+          </ul>
+          <ul class="chips" aria-label="Technologies">
+            <li>Node.js</li><li>NestJS</li><li>OAuth 2.0</li><li>REST APIs</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack" aria-labelledby="stack-h">
+    <div class="wrap">
+      <p class="label">Stack</p>
+      <h2 id="stack-h">Tools I use day to day.</h2>
+
+      <div class="stack-grid">
+        <div>
+          <p class="label">Agents &amp; LLMs</p>
+          <ul class="chips"><li>AI agent development</li><li>LLM integration</li><li>Multi-LLM orchestration</li><li>Workflow node design</li></ul>
+        </div>
+        <div>
+          <p class="label">Backend</p>
+          <ul class="chips"><li>Node.js</li><li>NestJS</li><li>Express</li><li>REST APIs</li><li>Microservices</li><li>OAuth 2.0 / JWT</li></ul>
+        </div>
+        <div>
+          <p class="label">Queues &amp; data</p>
+          <ul class="chips"><li>Redis</li><li>BullMQ</li><li>Kafka</li><li>MongoDB</li><li>ClickHouse</li><li>SQL</li></ul>
+        </div>
+        <div>
+          <p class="label">Data APIs</p>
+          <ul class="chips"><li>BrightData</li><li>Apify</li><li>Serper</li><li>SERP API</li><li>Webhooks</li></ul>
+        </div>
+        <div>
+          <p class="label">Languages</p>
+          <ul class="chips"><li>TypeScript</li><li>JavaScript</li><li>Python</li><li>Java</li><li>C++</li></ul>
+        </div>
+        <div>
+          <p class="label">AI coding tools</p>
+          <ul class="chips"><li>Claude Code</li><li>Codex</li><li>Antigravity</li></ul>
+        </div>
+        <div>
+          <p class="label">DevOps &amp; tools</p>
+          <ul class="chips"><li>Docker</li><li>Git</li><li>GitHub</li><li>Cloud computing</li></ul>
+        </div>
+        <div>
+          <p class="label">Concepts</p>
+          <ul class="chips"><li>System design</li><li>Scalability</li><li>Event-driven architecture</li><li>OOP</li></ul>
+        </div>
+      </div>
+
+      <div class="edu">
+        <p>B.Tech in Computer Engineering</p>
+        <p>PBR Visvodaya Institute of Technology &amp; Science, Kavali &middot; 2020 &ndash; 2024</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <p class="label">Contact</p>
+      <h2 id="contact-h">Have an agent or workflow that has to run reliably? Let's talk.</h2>
+      <div class="mail-row">
+        <span class="mail" id="mail-text">vishnuvar24@gmail.com</span>
+        <button class="btn" id="copy-btn" type="button">Copy email</button>
+        <a class="btn primary" href="mailto:vishnuvar24@gmail.com">Write an email</a>
+        <a class="btn" href="https://linkedin.com/in/vishnu-vardhan-25b71b266" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <p class="status" id="copy-status" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Korisipati Vishnu Vardhan</span>
+    <span>Hyderabad, India</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy-btn');
+  var text = document.getElementById('mail-text');
+  var status = document.getElementById('copy-status');
+  function selectText() {
+    var range = document.createRange();
+    range.selectNodeContents(text);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  btn.addEventListener('click', function () {
+    var value = text.textContent.trim();
+    var done = function () { status.textContent = 'Email address copied.'; };
+    var fail = function () { selectText(); status.textContent = 'Address selected. Press Ctrl+C or Cmd+C to copy.'; };
+    try {
+      navigator.clipboard.writeText(value).then(done, fail);
+    } catch (e) {
+      fail();
+    }
+  });
+})();
+</script>
+</body>
+</html>
